@@ -1,0 +1,65 @@
+﻿1、用一句自己的话总结学过的设计模式（要精准）。
+工厂模式：只对结果负责，封装创建过程
+单例模式：保证独一无二
+原型模式：一根猴毛，吹出千万个
+代理模式：找人办事，功能增强
+委派模式：干活是你的，功劳算我的
+策略模式：用户选择，结果唯一
+模板模式：流程标准化，自己实现定义
+适配器模式：兼容转换
+装饰器模式：包装，同宗同源。
+观察者模式：任务完成时通知。
+
+2.列举SpringAOP、IOC、DI应用的代码片段
+AOP
+@Aspect
+public class LoginAop {
+
+    @Pointcut("execution(* com.gupao.springcode.service..*.*(..))")
+    public void pointcut(){}
+
+    @Before("pointcut()")
+    public void before() {
+        System.out.println("before");
+    }
+
+    @After("pointcut()")
+    public void after() {
+        System.out.println("after");
+    }
+    @Around("pointcut")
+    public void around(){
+        System.out.println("around");
+    }
+
+    @AfterThrowing(pointcut="pointcut()")
+    public void afterThrowing(){
+        System.out.println("afterThrowing");
+    }
+}
+
+IOC
+        //IoC容器
+        ApplicationContext ctx=
+                new ClassPathXmlApplicationContext("applicationContext.xml");
+        //从容器中获取对象
+        User user= (User)ctx.getBean("user");
+
+DI
+
+<?xml version="1.0" encoding="GBK"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://www.springframework.org/schema/beans"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+	<!-- 配置名为person的Bean，其实现类是impl.handle.Person类 -->
+	<bean id="person" class="impl.handle.Person">
+		<property name="metal" ref="steal"/>
+		<property name="axe" ref="stealAxe"/>
+	</bean>
+	<bean id="steal" class="impl.handle.Steal"/>
+	<bean id="stealAxe" class="impl.handle.StealAxe"/>
+</beans>
+
+
+
